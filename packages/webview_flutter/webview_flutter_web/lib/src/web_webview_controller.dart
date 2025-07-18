@@ -12,6 +12,8 @@ import 'package:webview_flutter_platform_interface/webview_flutter_platform_inte
 import 'content_type.dart';
 import 'http_request_factory.dart';
 import 'shims/dart_ui.dart' as ui;
+import 'dart:ui_web' as ui_web;
+
 
 /// An implementation of [PlatformWebViewControllerCreationParams] using Flutter
 /// for Web API.
@@ -172,7 +174,7 @@ class WebWebViewWidget extends PlatformWebViewWidget {
       : super.implementation(params) {
     final WebWebViewController controller =
         params.controller as WebWebViewController;
-    ui.platformViewRegistry.registerViewFactory(
+    ui_web.platformViewRegistry.registerViewFactory(
       controller._webWebViewParams.iFrame.id,
       (int viewId) => controller._webWebViewParams.iFrame,
     );
