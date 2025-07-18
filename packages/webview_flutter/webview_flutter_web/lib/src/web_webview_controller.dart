@@ -174,7 +174,7 @@ class WebWebViewController extends PlatformWebViewController {
     js += "var scriptE = iFrameDoc.createElement('script');\n";
     js += "scriptE.text = `$javaScript`;\n";
     js += "iFrameDoc.getElementsByTagName(\"body\")[0].append(scriptE);";
-    html.document.body.appendHtml("<script>$js</script>");
+    html.document.body?.appendHtml("<script>$js</script>");
   }
 
 }
