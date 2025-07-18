@@ -165,6 +165,24 @@ class WebWebViewController extends PlatformWebViewController {
       html.window.removeEventListener('message', handler);
     }
   }
+
+  
+  @override
+  Future<void> runJavaScript(String javaScript) async {
+    final allIframes = html.document.getElementsByTagName('iframe');
+    allIframes.forEach((html.Node iFrame) {
+      // ignore: unsafe_html
+      final doc = ((iFrame as html.IFrameElement).contentWindow as html.Window?)?.document;
+      if(doc == null) {
+        return;
+      }
+      final script = doc!.createElement('script');
+      script.text = javaScript;
+      // doc.body.append(script);
+      doc.getElementsByTagName("body")[0].append(script);
+    });
+  }
+
 }
 
 /// An implementation of [PlatformWebViewWidget] using Flutter the for Web API.
