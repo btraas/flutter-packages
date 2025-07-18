@@ -169,18 +169,12 @@ class WebWebViewController extends PlatformWebViewController {
   
   @override
   Future<void> runJavaScript(String javaScript) async {
-    final allIframes = html.document.getElementsByTagName('iframe');
-    allIframes.forEach((html.Node iFrame) {
-      // ignore: unsafe_html
-      final doc = ((iFrame as html.IFrameElement).contentWindow as html.Window?)?.document;
-      if(doc == null) {
-        return;
-      }
-      final script = doc!.createElement('script');
-      script.text = javaScript;
-      // doc.body.append(script);
-      doc.getElementsByTagName("body")[0].append(script);
-    });
+    // final allIframes = html.document.getElementsByTagName('iframe');
+    String js = "var iFrameDoc = document.getElementsByTagName(\"iframe\")[0].contentWindow.document;\n";
+    js += "var scriptE = iFrameDoc.createElement('script');\n";
+    js += "scriptE.text = `$javaScript`;\n";
+    js += "iFrameDoc.getElementsByTagName(\"body\")[0].append(scriptE);";
+    html.document.body.appendHtml("<script>$js</script>");
   }
 
 }
